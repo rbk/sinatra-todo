@@ -1,0 +1,14 @@
+html,body { height: 100%; }
+body {
+	font-family: consolas;
+	overflow: hidden;
+}
+#page {
+	height: 100%;
+	padding: 1em;
+	max-width: 400px;
+	margin: 0 auto;
+	box-shadow: 0px 0px 60px -12px #444;
+	border-right: 1px solid #B4B4B4;
+	border-left: 1px solid #B4B4B4;
+}
