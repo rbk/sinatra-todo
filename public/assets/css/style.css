@@ -1,14 +1,65 @@
-html,body { height: 100%; }
+/*html,body { height: 100%; }*/
 body {
 	font-family: consolas;
-	overflow: hidden;
+	overflow-y:scroll;
 }
 #page {
-	height: 100%;
+	/*height: 100%;*/
 	padding: 1em;
-	max-width: 400px;
+	max-width: 600px;
 	margin: 0 auto;
-	box-shadow: 0px 0px 60px -12px #444;
-	border-right: 1px solid #B4B4B4;
-	border-left: 1px solid #B4B4B4;
+	box-shadow: 0px 0px 15px -6px #444;
+}
+.information {
+	background-color: #eee;
+	height:150px;
+	overflow-y:scroll;
+	border: 1px solid #444;
+	padding: 1em;
+}
+.todos {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	height: 150px;
+	overflow-y: scroll;
+	border: 1px solid #eee;
+	padding: 1em;
+	margin-bottom: 1em;
+}
+.todo {
+	position: relative;
+	display:block;
+	margin-bottom:1px;
+	padding: 5px;
+}
+.todo input {
+	width: 90%;
+	/*background-color: transparent;*/
+	/*border: 0;*/
+}
+.done {
+	position: absolute;
+	right: 5px;
+	top: 4px;
+	font-size: 24px;
+	color: #ccc;
+}
+.fa-square-o {
+	right: 7px;
+}
+.todo:hover {
+	cursor: pointer;
+	background-color: #eee;
+}
+.fr {
+	float: right;
+}
+
+input[type=submit],
+button {
+	background-color: rgb(255, 191, 55);
+	border: 0;
+	color: #fff;
+	padding: 5px 15px;
 }

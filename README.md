@@ -2,6 +2,8 @@ Stack:
 
 Sinatra, Mongodb, BackboneJS
 
+gem install bson
+
 gem install bson_ext
 
 gem install mongo
