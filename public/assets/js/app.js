@@ -36,21 +36,31 @@ $(function(){
 			}
 		});
 	});
-
-
-
-
+	// CREATE
 	$('input#addTodo').click(function(e){
 		e.preventDefault();
-		$.post('api', { name: $('input#todo').val() }, function(id){
-			// console.log(data)
-			$('.todos').prepend('<li class="todo" id="'+ id +'">' + $('input#todo').val() + '<i class="done fa fa-square-o"></i></li>');
-			$('input#todo').val('');
-			if( $('.no-todos').length ){
-				$('.no-todos').remove();
-			}
-		});
+		var todo = $('input#todo').val();
+		if( todo ){
+			$.post('api', { name: todo }, function(id){
+				var todo_template = $('#todo-template').html();
+				todo_template = todo_template.replace('{{id}}', id );
+				todo_template = todo_template.replace('{{name}}', todo );
+				$('.todos').prepend(todo_template);
+				
+				$('input#todo').val('');
+				if( $('.no-todos').length ){
+					$('.no-todos').remove();
+				}
+			});
+		} else {
+
+		}
 	});
+	// ARCHIVED
+	// DONE
+	// DELETE
+	// UPDATE
+
 	// DELETE ALL
 	$('.remove_all_todos').click(function(){
 		$('.todos').find('li.todo').remove();
@@ -63,12 +73,17 @@ $(function(){
 		});
 	});
 
+	// SHOW ALL TODOS
 	$(window).load(function(){
 		$.get('api',function(data){
-			console.log(data);
 			if( data.length ){
 				$.each( data, function(index,value) {
-					$('.todos').prepend('<li class="todo" id="'+ value['_id'].$oid +'">' + value['name'] + '<i class="done fa fa-square-o"></i></li>');
+					var todo_template = $('#todo-template').html();
+					todo_template = todo_template.replace('{{id}}', value['_id'].$oid );
+					todo_template = todo_template.replace('{{name}}', value['name'] );
+					$('.todos').prepend(todo_template);
+
+					// $('.todos').prepend('<li class="todo" id="'+  +'">' + value['name'] + '<i class="done fa fa-square-o"></i></li>');
 				});				
 			} else {
 				$('.todos').append('<li class="no-todos">No Todos Found</li>');
@@ -84,11 +99,12 @@ $(function(){
 
 
 	$('.todos').on( 'click', '.todo', function(){
-		var input = $(this).find('input');
-		if( input.length == 0 ){
-			var this_text = $(this).text();
-			$(this).html('<input type="text" class="todo_update_text" value="'+this_text+'"><i class="done fa fa-square-o"></i>');
-		}
+		$(this).attr('contenteditable', true);
+	// 	var input = $(this).find('input');
+	// 	if( input.length == 0 ){
+	// 		var this_text = $(this).text();
+	// 		$(this).html('<input type="text" class="todo_update_text" value="'+this_text+'"><i class="done fa fa-square-o"></i>');
+	// 	}
 	});
 	$('.todos').on('change', '.todo_update_text',function(){
 		alert("do some shit now")

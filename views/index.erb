@@ -1,25 +1,14 @@
-<!-- <h1>Sinatra, Backbonejs, and MongoDB</h1> -->
 
-<h1>Try to send an arbitrary array to server.</h1>
-	
-	
-<!-- 	<pre>
-		{
-			'name' : 'richard',
-			'age'  : '27',
-			'nickname' : 'dick'
-		}
-	</pre>
- -->	<input type="submit" class="richard" value="send arbitrary array to be saved in mongo">
+<!-- <h1>Todo list</h1> -->
+<h6></h6>
+<ul class="todos">
 
-<hr>
-
-<h1>Todo list</h1>
-<ul class="todos"></ul>
+</ul>
 <form action="/api" method="post">
 		<input type="text" id="todo" name="todo">
 		<input type="submit" id="addTodo" value="Add Todo">
 </form>
+
 
 
 
@@ -30,5 +19,17 @@
 	<div class="information">
 		<%= @todo_collection.inspect %>
 	</div>
+	
+</script>
+
+
+
+<script id="todo-template" type="text/template">
+
+	<li class="todo" id="{{id}}">
+		<span class="name">{{name}}</span>
+		<span id="edit-todo" class="fa fa-pencil-square-o"></span>
+		<span id="done-todo" class="fa fa-square-o"></span>
+	</li>
 	
 </script>

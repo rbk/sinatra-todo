@@ -26,12 +26,14 @@ body {
 	border: 1px solid #eee;
 	padding: 1em;
 	margin-bottom: 1em;
+	
 }
 .todo {
 	position: relative;
 	display:block;
 	margin-bottom:1px;
 	padding: 5px;
+	border: 1px solid #fff;
 }
 .todo input {
 	width: 90%;
@@ -50,7 +52,7 @@ body {
 }
 .todo:hover {
 	cursor: pointer;
-	background-color: #eee;
+	border: 1px solid #eee;
 }
 .fr {
 	float: right;
