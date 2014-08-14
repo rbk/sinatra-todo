@@ -10,21 +10,46 @@ class MyApp < Sinatra::Base
 	DB = Mongo::Connection.new.db("todos")
 	todos = DB.collection('todos')
 
+ 	# root
 	get '/' do
 		@todo_collection = todos
 		erb :index
 	end
 
-	get '/api' do
-		content_type :json
-		todos.find.to_a.to_json
-  		# {"_id":{"$oid": "53d9bb1fae35d721b9000001"} - Note get rid of this format somehow
+	# todo index
+	get '/todos' do
+		@todo_collection = todos
+		erb :index
 	end
-	post '/api' do
+
+	# Create
+	post '/todos' do
 		id = todos.insert( { :name => params[:name] } )
 		"#{id}"
 		#"{\"id\":\"#{the_id.to_s}\"}"
 	end
+
+	# read as json
+	get '/api/todos' do
+		content_type :json
+		todos.find.to_a.to_json
+  		# {"_id":{"$oid": "53d9bb1fae35d721b9000001"} - Note get rid of this format somehow
+	end
+	
+	get '/todo/:id' do
+		todo = todos.find( { :_id => params[:id] } )
+		if todo
+			@todo = todo
+			erb :single_todo
+		end
+	end
+
+	# update
+	put '/todos' do
+
+	end
+
+
 
 	delete '/api' do
 		todos.remove()

@@ -21,27 +21,27 @@ $(function(){
 
 	// var testing = new Todo();
 
-	var richard = {
-		'name' : 'richard',
-		'age'  : '27',
-		'nickname' : 'dick'
-	};
-	$('.richard').click(function(){
-		$.ajax({
-			url: '/whatever',
-			type: 'post',
-			data: richard,
-			success: function(result) {
-				console.log( result )
-			}
-		});
-	});
+	// var richard = {
+	// 	'name' : 'richard',
+	// 	'age'  : '27',
+	// 	'nickname' : 'dick'
+	// };
+	// $('.richard').click(function(){
+	// 	$.ajax({
+	// 		url: '/whatever',
+	// 		type: 'post',
+	// 		data: richard,
+	// 		success: function(result) {
+	// 			console.log( result )
+	// 		}
+	// 	});
+	// });
 	// CREATE
 	$('input#addTodo').click(function(e){
 		e.preventDefault();
 		var todo = $('input#todo').val();
 		if( todo ){
-			$.post('api', { name: todo }, function(id){
+			$.post('todos', { name: todo }, function(id){
 				var todo_template = $('#todo-template').html();
 				todo_template = todo_template.replace('{{id}}', id );
 				todo_template = todo_template.replace('{{name}}', todo );
@@ -65,7 +65,7 @@ $(function(){
 	$('.remove_all_todos').click(function(){
 		$('.todos').find('li.todo').remove();
 		$.ajax({
-			url: '/api',
+			url: '/todos',
 			type: 'DELETE',
 			success: function(result) {
 				$('.todos').append('<li class="no-todos">No Todos Found</li>');
@@ -75,7 +75,7 @@ $(function(){
 
 	// SHOW ALL TODOS
 	$(window).load(function(){
-		$.get('api',function(data){
+		$.get('todos',function(data){
 			if( data.length ){
 				$.each( data, function(index,value) {
 					var todo_template = $('#todo-template').html();
@@ -99,16 +99,24 @@ $(function(){
 
 
 	$('.todos').on( 'click', '.todo', function(){
-		$(this).attr('contenteditable', true);
-	// 	var input = $(this).find('input');
-	// 	if( input.length == 0 ){
-	// 		var this_text = $(this).text();
-	// 		$(this).html('<input type="text" class="todo_update_text" value="'+this_text+'"><i class="done fa fa-square-o"></i>');
-	// 	}
+		// $(this).attr('contenteditable', true);
+		var input = $(this).find('input');
+		if( input.length == 0 ){
+			var this_text = $(this).text().trim();
+			$(this).html('<input type="text" class="todo_update_text" value="'+this_text+'"><i class="done fa fa-square-o"></i>');
+			$(this).find('input').focus().select();
+		}
 	});
-	$('.todos').on('change', '.todo_update_text',function(){
-		alert("do some shit now")
-	});
+	// $('.todos').on('change', '.todo_update_text',function(){
+	// 	$.ajax({
+	// 		url: '/todos',
+	// 		type: 'DELETE',
+	// 		success: function(result) {
+	// 			$('.todos').append('<li class="no-todos">No Todos Found</li>');
+	// 		}
+	// 	});
+
+	// });
 
 
 

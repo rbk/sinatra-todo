@@ -1,28 +1,22 @@
 
-<!-- <h1>Todo list</h1> -->
-<h6></h6>
-<ul class="todos">
+<h1>Todo list</h1>
 
-</ul>
-<form action="/api" method="post">
-		<input type="text" id="todo" name="todo">
-		<input type="submit" id="addTodo" value="Add Todo">
+<ul class="todos"></ul>
+
+<form action="/todos" method="post">
+	<input type="text" id="todo" name="todo">
+	<input type="submit" id="addTodo" value="Add Todo">
 </form>
-
-
-
 
 <br>
 <button class="remove_all_todos">Clear All Todos</button>
+
 <script type="whatever">
 	@todo_collection: 
 	<div class="information">
 		<%= @todo_collection.inspect %>
-	</div>
-	
+	</div>	
 </script>
-
-
 
 <script id="todo-template" type="text/template">
 
