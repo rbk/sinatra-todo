@@ -3,7 +3,8 @@ require 'sinatra'
 require 'mongo'
 require 'json/ext' # required for .to_json
 
-#set :public_folder, File.dirname(__FILE__) + '/assets'
+# Don't need to set this as it is Sinatra's default asset directory.
+# set :public_folder, File.dirname(__FILE__) + '/assets'
 
 class MyApp < Sinatra::Base
 	
