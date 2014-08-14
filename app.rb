@@ -16,6 +16,11 @@ class MyApp < Sinatra::Base
 		erb :index
 	end
 
+	get '/backbone' do
+		@todo_collection = todos
+		erb :backbone
+	end
+
 	# todo index
 	get '/todos' do
 		@todo_collection = todos
