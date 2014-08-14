@@ -2,40 +2,20 @@ $(function(){
 	
 	// var Todo = Backbone.Model.extend ({
 	// 	initialize: function(){
-	// 		urlRoot: '/todos'
-	// 		console.log( 'TodoModel says init everytime a new instance is created.' );
-	// 	},
-	// 	defaults: function(){
-	// 		return {
-	// 			title: 'nothing',
-	// 			done: false						
-	// 		}
-	// 	},
-	// 	toggle: function() {
- //  			this.save({done: !this.get("done")});
+	// 		urlRoot: '/todos',
+	//         defaults: {
+	//             title: '',
+	//             done: false
+	//         }
 	// 	}
-	// });
-	// var todolist = Backbone.Collection.extend({
-	// 	model: Todo
+		
 	// });
 
-	// var testing = new Todo();
 
-	// var richard = {
-	// 	'name' : 'richard',
-	// 	'age'  : '27',
-	// 	'nickname' : 'dick'
-	// };
-	// $('.richard').click(function(){
-	// 	$.ajax({
-	// 		url: '/whatever',
-	// 		type: 'post',
-	// 		data: richard,
-	// 		success: function(result) {
-	// 			console.log( result )
-	// 		}
-	// 	});
-	// });
+
+
+
+
 	// CREATE
 	$('input#addTodo').click(function(e){
 		e.preventDefault();
