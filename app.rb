@@ -37,7 +37,7 @@ class MyApp < Sinatra::Base
 	end
 	
 	get '/todo/:id' do
-		todo = todos.find( { :_id => tobsonid(params[:id]) } )
+		todo = todos.find( { :_id => params[:id] } )
 		if todo
 			@todo = todo
 		else
@@ -101,8 +101,8 @@ class MyApp < Sinatra::Base
  
 # # utilities for generating/converting MongoDB ObjectIds
  
-def tobsonid(id) BSON::ObjectId.fromstring(id) end
-def frombsonid(obj) obj.merge({'id' => obj['id'].tos}) end
+# def tobsonid(id) BSON::ObjectId.fromstring(id) end
+# def frombsonid(obj) obj.merge({'id' => obj['id'].tos}) end
 
 end
 
