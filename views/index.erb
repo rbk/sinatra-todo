@@ -1,7 +1,21 @@
 
 <h1>Todo list</h1>
+<ul>
+	<li>First, find out why jquery is throughing error</li>
+	<li>Click to edit, onchange update</li>
+	<li>Click square to complete</li>
+	<li>Button to archive all completed todos</li>
+	<li>page list of completed todos</li>
+	<li>organize completed todos by date and time</li>
+</ul>
 
-<ul class="todos"></ul>
+<ul class="todos">
+	<li class="todo" id="{{id}}">
+		<span class="name">Finish this todo app</span>
+		<!-- <span id="edit-todo" class="fa fa-pencil-square-o"></span> -->
+		<span id="done-todo" class="fa fa-square-o"></span>
+	</li>
+</ul>
 
 <form action="/todos" method="post">
 	<input type="text" id="todo" name="todo">
@@ -10,6 +24,8 @@
 
 <br>
 <button class="remove_all_todos">Clear All Todos</button>
+<button>View Archive</button>
+
 
 <script type="whatever">
 	@todo_collection: 

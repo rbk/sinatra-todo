@@ -77,6 +77,14 @@ $(function(){
 	$(window).load(function(){
 		$.get('todos',function(data){
 			if( data.length ){
+
+				////////////////////////////////////////////////////////////////////////////////////
+				// TODO: There is an issue with this loop. Mostlikely a data type problem.
+				////////////////////////////////////////////////////////////////////////////////////
+				// Uncaught TypeError: Cannot use 'in' operator to search for '7154' in #<error> 
+				////////////////////////////////////////////////////////////////////////////////////
+
+
 				$.each( data, function(index,value) {
 					var todo_template = $('#todo-template').html();
 					todo_template = todo_template.replace('{{id}}', value['_id'].$oid );
