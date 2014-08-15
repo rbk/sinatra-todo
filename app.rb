@@ -41,12 +41,12 @@ class MyApp < Sinatra::Base
 	post '/todos' do
 		# id = todos.insert( { :name => params[:name] } )
 		# params
+		content_type :json
 		@json = JSON.parse(request.body.read)
 		File.open("log.txt", 'a') {|f| f.write("#{@json}\n") }
 		id = todos.insert( @json )
-
-
 		"#{id}"
+		"#{@json}".to_json
 		#"{\"id\":\"#{the_id.to_s}\"}"
 
 

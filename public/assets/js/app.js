@@ -10,13 +10,24 @@ $(function(){
             done:false
         }	
 	});
-	var todo1 = new Todo();
-	var todo_details = {
-		name: 'test1',
-		done: false
-	}
-    todo1.save(todo_details, {error: function(model, response, options){ console.log(response) }});
-    todo1.save(todo_details, {success: function(model, response, options){ console.log(response) }});
+	var todo1 = new Todo({
+		name: 'new one',
+		done: true
+	});
+    // todo1.save(todo_details, {error: function(model, response, options){ console.log(response) }});
+    todo1.save({},{ 
+    	success: function(model, response, options){ 
+    		console.log(model) 
+    		console.log(response) 
+    		console.log(options) 
+    	}
+    	// ,
+    	// error: function(model, response, options){ 
+    	// 	console.log(model) 
+    	// 	console.log(response) 
+    	// 	console.log(options) 
+    	// }
+	});
     // todo1.save(todo_details, {success: function(res){ console.log(res) }});
 
 	// todo1.save( todo_details, {
