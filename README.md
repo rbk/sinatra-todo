@@ -18,7 +18,8 @@ gem install mongo
 
 gem install sinatra
 
-gem install slim
+<!-- gem install slim -->
+gem install thin
 
 
 ### OR

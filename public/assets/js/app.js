@@ -10,23 +10,28 @@ $(function(){
             done:false
         }	
 	});
-	var todo1 = new Todo({
+	var todo1 = new Todo();
+	var todo_details = {
 		name: 'test1',
 		done: false
-	});
+	}
+    todo1.save(todo_details, {error: function(model, response, options){ console.log(response) }});
+    todo1.save(todo_details, {success: function(model, response, options){ console.log(response) }});
+    // todo1.save(todo_details, {success: function(res){ console.log(res) }});
 
+	// todo1.save( todo_details, {
+ //        success: function (todo) {
+ //            // alert(todo.toJSON());
+ //            // $('#message').text('success');
+ //            // console.log('success')
+ //        },
+ //         success: function (todo) {
+ //            // alert(todo.toJSON());
+ //            // $('#message').text('success');
+ //            // console.log('success')
+ //        }
 
-	todo1.save( {
-        success: function (todo) {
-            alert(todo.toJSON());
-            $('#message').text('success');
-            console.log('success')
-        },
-        failure: function(err) {
-        	$('#message').text('success');
-        	console.log('success')
-        }
-    })
+ //    });
 
 
 

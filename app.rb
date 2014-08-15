@@ -6,6 +6,8 @@ require 'json/ext' # required for .to_json
 # Don't need to set this as it is Sinatra's default asset directory.
 # set :public_folder, File.dirname(__FILE__) + '/assets'
 
+
+
 class MyApp < Sinatra::Base
 	
 	##
@@ -38,7 +40,11 @@ class MyApp < Sinatra::Base
 	# Create
 	post '/todos' do
 		# id = todos.insert( { :name => params[:name] } )
-		id = todos.insert( params )
+		# params
+		@json = JSON.parse(request.body.read)
+		File.open("log.txt", 'a') {|f| f.write("#{@json}\n") }
+		id = todos.insert( @json )
+
 
 		"#{id}"
 		#"{\"id\":\"#{the_id.to_s}\"}"
