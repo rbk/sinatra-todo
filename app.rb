@@ -8,10 +8,17 @@ require 'json/ext' # required for .to_json
 
 class MyApp < Sinatra::Base
 	
+	##
+	# Database Connection
+	##
+
 	DB = Mongo::Connection.new.db("sinatra")
 	todos = DB.collection('todos')
 
- 	# root
+	##
+	# Routes
+	##
+
 	get '/' do
 		@todo_collection = todos
 		erb :index
@@ -30,9 +37,13 @@ class MyApp < Sinatra::Base
 
 	# Create
 	post '/todos' do
-		id = todos.insert( { :name => params[:name] } )
+		# id = todos.insert( { :name => params[:name] } )
+		id = todos.insert( params )
+
 		"#{id}"
 		#"{\"id\":\"#{the_id.to_s}\"}"
+
+
 	end
 
 	# read as json

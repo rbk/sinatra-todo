@@ -1,15 +1,58 @@
 $(function(){
 	
-	// var Todo = Backbone.Model.extend ({
-	// 	initialize: function(){
-	// 		urlRoot: '/todos',
-	//         defaults: {
-	//             title: '',
-	//             done: false
-	//         }
-	// 	}
-		
-	// });
+	var Todo = Backbone.Model.extend ({
+		initialize: function(){
+			console.log( 'init' );
+		},
+		urlRoot: '/todos',
+        defaults: {
+            name: 'default',
+            done:false
+        }	
+	});
+	var todo1 = new Todo({
+		name: 'test1',
+		done: false
+	});
+
+
+	todo1.save( {
+        success: function (todo) {
+            alert(todo.toJSON());
+            $('#message').text('success');
+            console.log('success')
+        },
+        failure: function(err) {
+        	$('#message').text('success');
+        	console.log('success')
+        }
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -55,6 +98,7 @@ $(function(){
 
 	// SHOW ALL TODOS
 	$(window).load(function(){
+		return;
 		$.get('todos',function(data){
 			if( data.length ){
 
