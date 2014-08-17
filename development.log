@@ -1,0 +1,3 @@
+ID: 53f12353aa5ca81482000001 - {"name"=>"new one", "done"=>true, :_id=>BSON::ObjectId('53f12353aa5ca81482000001')}
+ID: 53f12354aa5ca81482000002 - {"name"=>"new one", "done"=>true, :_id=>BSON::ObjectId('53f12354aa5ca81482000002')}
+ID: 53f12397aa5ca81482000003 - {"name"=>"new one", "done"=>true, :_id=>BSON::ObjectId('53f12397aa5ca81482000003')}

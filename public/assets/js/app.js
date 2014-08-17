@@ -20,13 +20,13 @@ $(function(){
     		console.log(model) 
     		console.log(response) 
     		console.log(options) 
+    	},
+    	error: function(model, response, options){
+    		alert('something is not right')
+    		// console.log(model) 
+    		// console.log(response) 
+    		// console.log(options)
     	}
-    	// ,
-    	// error: function(model, response, options){ 
-    	// 	console.log(model) 
-    	// 	console.log(response) 
-    	// 	console.log(options) 
-    	// }
 	});
     // todo1.save(todo_details, {success: function(res){ console.log(res) }});
 
@@ -104,10 +104,11 @@ $(function(){
 	$('.remove_all_todos').click(function(){
 		$('.todos').find('li.todo').remove();
 		$.ajax({
-			url: '/todos',
+			url: '/todos?id=',
 			type: 'DELETE',
-			success: function(result) {
+			success: function(response) {
 				$('.todos').append('<li class="no-todos">No Todos Found</li>');
+				alert(response)
 			}
 		});
 	});

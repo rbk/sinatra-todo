@@ -13,14 +13,16 @@ class MyApp < Sinatra::Base
 	##
 	# Database Connection
 	##
-
 	DB = Mongo::Connection.new.db("sinatra")
+
+	##
+	# todo collection - model defined one the client
+	##
 	todos = DB.collection('todos')
 
 	##
 	# Routes
 	##
-
 	get '/' do
 		@todo_collection = todos
 		erb :index
@@ -39,17 +41,11 @@ class MyApp < Sinatra::Base
 
 	# Create
 	post '/todos' do
-		# id = todos.insert( { :name => params[:name] } )
-		# params
 		# content_type :json
 		@json = JSON.parse(request.body.read)
-		File.open("development.log", 'a') {|f| f.write("#{@json}\n") }
 		id = todos.insert( @json )
-		# "#{id}"
-		"#{@json}".to_json
-		#"{\"id\":\"#{the_id.to_s}\"}"
-
-
+		File.open("development.log", 'a') {|f| f.write("ID: #{id.to_s} - #{@json}\n") }
+		"#{@json}".to_json # Backbone expects a json object to be returned in order to fire the success callback
 	end
 
 	# read as json
@@ -60,13 +56,16 @@ class MyApp < Sinatra::Base
 	end
 	
 	get '/todo/:id' do
-		todo = todos.find( { :_id => params[:id] } )
+		content_type :json
+
+		id = BSON::ObjectId(params[:id])
+		todo = todos.find( {:_id => id } ).to_a
 		if todo
-			@todo = todo
+			todo.inspect
 		else
-			@todo = '404 nothing found'
+			"nothing found"
 		end
-		erb :single_todo
+
 	end
 
 	# update
@@ -76,11 +75,14 @@ class MyApp < Sinatra::Base
 
 
 
-	delete '/api' do
-		todos.remove()
-		"You deleted everything in the todo collection!"
+	delete '/todos/?:id?' do
+		if !params[:id].empty?
+			todos.remove()
+			"You deleted everything in the todo collection!"			
+		else
+			"NO ID"
+		end
 	end
-
 
 	post '/whatever' do
 		id = todos.insert( params )
