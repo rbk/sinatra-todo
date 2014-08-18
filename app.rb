@@ -32,9 +32,11 @@ class MyApp < Sinatra::Base
 	end
 
 	delete '/todos/:id?' do
-		id = BSON::ObjectId(params[:id])
-		todo = todos.remove( {:_id => id } ).to_a
-		"Todo removed with id #{id}"
+		if params[:id]
+			id = BSON::ObjectId(params[:id])
+			todo = todos.remove( {:_id => id } ).to_a
+			"Todo removed with id #{id}"
+		end
 	end
 
 	post '/todo/new' do
