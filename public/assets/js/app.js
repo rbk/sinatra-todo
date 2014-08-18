@@ -52,9 +52,7 @@ $(function(){
 					var todo_template = $('#todo-template').html();
 					todo_template = todo_template.replace('{{id}}', value['_id'].$oid );
 					todo_template = todo_template.replace('{{name}}', value['name'] );
-					
-					console.log( value['done'] )
-
+				
 					var done;
 					if( value['done'] == 'true' ){
 						done = 'fa-check-square-o';
@@ -93,6 +91,21 @@ $(function(){
 			$(this).parent().parent().attr('done', 'false');
 		}
 		update_todo( $(this) )
+	});
+	// update todo on click of checkbox
+	$('.todos').on('click', '.delete-todo', function(){
+		// var sure = confirm('Are you sure?');
+		// if( sure ){
+			var li = $(this).parents('li')
+			$.ajax({
+				url: '/todos/?id=' + li.attr('id'),
+				type: 'DELETE',
+				success: function(response) {
+					// alert(response)
+					li.remove();
+				}
+			});
+		// }
 	});
 
 

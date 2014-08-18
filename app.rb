@@ -31,6 +31,12 @@ class MyApp < Sinatra::Base
 		"You deleted everything in the todo collection!"			
 	end
 
+	delete '/todos/:id?' do
+		id = BSON::ObjectId(params[:id])
+		todo = todos.remove( {:_id => id } ).to_a
+		"Todo removed with id #{id}"
+	end
+
 	post '/todo/new' do
 		id = todos.insert( params )
 		params.to_json

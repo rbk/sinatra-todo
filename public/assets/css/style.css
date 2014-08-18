@@ -58,8 +58,12 @@ body {
 }
 .todo .todo-check {
 	display: inline-block;
-	width: 25px;
+	width: 50px;
 	float: right;
+}
+.todo span:hover {
+	cursor: pointer;
+	color: #fff;
 }
 
 
