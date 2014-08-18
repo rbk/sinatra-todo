@@ -7,7 +7,6 @@ $(function(){
 		if( todo ){
 			$.post('/todo/new', { name: todo, done: false }, function(response){
 
-				console.log(  )
 				response = jQuery.parseJSON(response)
 				response.id = response._id.$oid
 				delete response['_id']
@@ -15,17 +14,16 @@ $(function(){
 				var todo_template = $('#todo-template').html();
 				todo_template = todo_template.replace('{{id}}', response.id );
 				todo_template = todo_template.replace('{{name}}', response.name );
-				$('.todos').prepend(todo_template);
+				todo_template = todo_template.replace('{{done}}', false );
+				todo_template = todo_template.replace('{{done-class}}', 'fa-square-o' );
 
-				console.log( response )
+				$('.todos').prepend(todo_template);
 				
 				$('input#todo').val('');
 				if( $('.no-todos').length ){
 					$('.no-todos').remove();
 				}
 			});
-		} else {
-
 		}
 	});
 	// ARCHIVED
@@ -40,15 +38,13 @@ $(function(){
 			type: 'DELETE',
 			success: function(response) {
 				$('.todos').find('li.todo').remove();
-				$('.todos').append('<li class="no-todos">No Todos Found</li>');
-				alert(response)
+				$('.todos').append('<li class="no-todos todo">'+response+'</li>');
 			}
 		});
 	});
 
 	// SHOW ALL TODOS
 	$(window).load(function(){
-		// return;
 		$.get('/api/todos',function(data){
 			if( data.length ){
 
@@ -56,11 +52,22 @@ $(function(){
 					var todo_template = $('#todo-template').html();
 					todo_template = todo_template.replace('{{id}}', value['_id'].$oid );
 					todo_template = todo_template.replace('{{name}}', value['name'] );
+					
+					console.log( value['done'] )
+
+					var done;
+					if( value['done'] == 'true' ){
+						done = 'fa-check-square-o';
+					} else {
+						done = 'fa-square-o';
+					}
+					todo_template = todo_template.replace('{{done}}', value['done'] );
+					todo_template = todo_template.replace('{{done-class}}', done );
+
 					$('.todos').prepend(todo_template);
 				});				
-
 			} else {
-				$('.todos').append('<li class="no-todos">No Todos Found</li>');
+				$('.todos').append('<li class="no-todos todo">No Todos Found</li>');
 			}
 
 		});
@@ -71,40 +78,40 @@ $(function(){
 		$(this).toggleClass('fa-square-o');
 	});
 
+	$('.todos').on('change', '.name',function(){
 
-	$('.todos').on( 'click', '.todo', function(){
-		
-		var input = $(this).find('input');
-		var current_todo_text = $(this).find('span.name').text();
-
-		if( input.length == 0 ){
-			// var this_text = $(this).text().trim();
-			$(this).find('.todo-name').html('<input type="text" class="todo_update_text" value="'+current_todo_text+'">');
-			$(this).find('input').focus().select();
-		}
-	});
-	$('.todos').on('change', '.todo_update_text',function(){
 		$.ajax({
 			url: '/todos',
 			type: 'POST',
-			data: { name: $(this).val(), id: $(this).parent().parent().attr('id') },
+			data: { 
+				id: $(this).parent().parent().attr('id'),
+				name: $(this).val(),
+				done: $(this).parent().parent().attr('done')
+			},
 			success: function(response) {
 				var response = jQuery.parseJSON(response);
-				// console.log( jQuery.parseJSON(response) )
-				// console.log( $('#' + response.id) )
-				console.log( $('#' + response.id).find('input').val() )
-				$('#' + response.id).animate('background-color','red')
 				$('#' + response.id).find('input').addClass('pulse animated');
 				t = setTimeout(function(){
 					$('#' + response.id).find('input').removeClass('pulse')
 				},1000)
-
-				// var text_value = $(this).val()
-				// $(this).parent().html('<span class="name">'+text_value+'</span>')
 			}
 		});
 
 	});
+	$('.todos').on('click', '.done-todo', function(){
+		$(this).toggleClass('fa-square-o');
+		$(this).toggleClass('fa-check-square-o');
+		if( $(this).hasClass('fa-check-square-o') ){
+			$(this).parent().parent().attr('done', 'true');
+		} else {
+			$(this).parent().parent().attr('done', 'false');
+		}
+
+	});
+
+	function update_todo(){
+
+	}
 
 
 

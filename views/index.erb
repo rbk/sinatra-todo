@@ -33,13 +33,12 @@
 
 <script id="todo-template" type="text/template">
 
-	<li class="todo" id="{{id}}">
+	<li class="todo" id="{{id}}" done="{{done}}">
 		<div class="todo-name">
-			<span class="name">{{name}}</span>
+			<input type="text" class="name" value="{{name}}">
 		</div>
 		<div class="todo-check">
-			
-			<span class="done-todo fa fa-square-o"></span>
+			<span class="done-todo fa {{done-class}}"></span>
 		</div>
 	</li>
 	

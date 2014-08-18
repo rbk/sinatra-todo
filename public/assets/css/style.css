@@ -18,6 +18,14 @@ body {
 	border: 1px solid #444;
 	padding: 1em;
 }
+.todos * {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
 .todos {
 	margin: 0;
 	padding: 0;

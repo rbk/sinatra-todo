@@ -59,7 +59,11 @@ class MyApp < Sinatra::Base
 
 	# update
 	post '/todos' do
-		todo = todos.update( { :_id => BSON::ObjectId(params[:id]) }, { :name => params[:name] })
+		todo = todos.update( { :_id => BSON::ObjectId(params[:id]) },
+		{ 
+			:name => params[:name], 
+			:done => params[:done] 
+		})
 		params.to_json
 		# { "_id" : ObjectId("53f167c1ae35d73e10000001"), "name" : "s" }
 
