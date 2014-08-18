@@ -78,15 +78,34 @@ $(function(){
 		$(this).toggleClass('fa-square-o');
 	});
 
+	// update todo on change
 	$('.todos').on('change', '.name',function(){
+		update_todo( $(this) );
+	});
+
+	// update todo on click of checkbox
+	$('.todos').on('click', '.done-todo', function(){
+		$(this).toggleClass('fa-square-o');
+		$(this).toggleClass('fa-check-square-o');
+		if( $(this).hasClass('fa-check-square-o') ){
+			$(this).parent().parent().attr('done', 'true');
+		} else {
+			$(this).parent().parent().attr('done', 'false');
+		}
+		update_todo( $(this) )
+	});
+
+
+	function update_todo(el){
+		var li = el.parents('li');
 
 		$.ajax({
 			url: '/todos',
 			type: 'POST',
 			data: { 
-				id: $(this).parent().parent().attr('id'),
-				name: $(this).val(),
-				done: $(this).parent().parent().attr('done')
+				id: li.attr('id'),
+				name: li.find('.name').val(),
+				done: li.attr('done')
 			},
 			success: function(response) {
 				var response = jQuery.parseJSON(response);
@@ -96,20 +115,6 @@ $(function(){
 				},1000)
 			}
 		});
-
-	});
-	$('.todos').on('click', '.done-todo', function(){
-		$(this).toggleClass('fa-square-o');
-		$(this).toggleClass('fa-check-square-o');
-		if( $(this).hasClass('fa-check-square-o') ){
-			$(this).parent().parent().attr('done', 'true');
-		} else {
-			$(this).parent().parent().attr('done', 'false');
-		}
-
-	});
-
-	function update_todo(){
 
 	}
 
