@@ -10,11 +10,7 @@
 </ul>
 
 <ul class="todos">
-	<li class="todo" id="{{id}}">
-		<span class="name">Finish this todo app</span>
-		<!-- <span id="edit-todo" class="fa fa-pencil-square-o"></span> -->
-		<span id="done-todo" class="fa fa-square-o"></span>
-	</li>
+
 </ul>
 
 <form action="/todos" method="post">
@@ -32,14 +28,19 @@
 	<div class="information">
 		<%= @todo_collection.inspect %>
 	</div>	
+	<span class="edit-todo fa fa-pencil-square-o"></span>
 </script>
 
 <script id="todo-template" type="text/template">
 
 	<li class="todo" id="{{id}}">
-		<span class="name">{{name}}</span>
-		<span id="edit-todo" class="fa fa-pencil-square-o"></span>
-		<span id="done-todo" class="fa fa-square-o"></span>
+		<div class="todo-name">
+			<span class="name">{{name}}</span>
+		</div>
+		<div class="todo-check">
+			
+			<span class="done-todo fa fa-square-o"></span>
+		</div>
 	</li>
 	
 </script>
