@@ -1,14 +1,5 @@
 
-<h1>Todos: <%= @todo_collection.count %></h1>
-<ul>
-	<li>First, find out why jquery is throughing error</li>
-	<li>Click to edit, onchange update</li>
-	<li>Click square to complete</li>
-	<li>Button to archive all completed todos</li>
-	<li>page list of completed todos</li>
-	<li>organize completed todos by date and time</li>
-	<li>Add search function</li>
-</ul>
+<h1>Todos: <span class="todo-count"><%= @todo_collection.count %></span> </h1>
 
 <ul class="todos">
 
@@ -20,9 +11,11 @@
 </form>
 
 <br>
-<button class="remove_all_todos">Clear All Todos</button>
-<button>View Archive</button>
-
+<button class="archive_todos">Archive Completed Todos</button>
+<button class="view_archive">View Archive</button>
+<br>
+<br>
+<button style="background-color:red" class="remove_all_todos">Delete ALL </button>
 
 <script type="whatever">
 	@todo_collection: 

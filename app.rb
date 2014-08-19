@@ -40,6 +40,8 @@ class MyApp < Sinatra::Base
 	end
 
 	post '/todo/new' do
+		params[:date_created] = "#{Time.new}"
+		File.open("development.log", 'a') {|f| f.write("#{params}\n") }
 		id = todos.insert( params )
 		params.to_json
 	end
@@ -70,11 +72,24 @@ class MyApp < Sinatra::Base
 		todo = todos.update( { :_id => BSON::ObjectId(params[:id]) },
 		{ 
 			:name => params[:name], 
-			:done => params[:done] 
+			:done => params[:done]
 		})
 		params.to_json
 		# { "_id" : ObjectId("53f167c1ae35d73e10000001"), "name" : "s" }
 
+	end
+
+	post '/archive-todos' do
+		todo_ids = params[:todos]
+		todo_ids.each do |id|
+			id = id.to_s
+			File.open("development.log", 'a') {|f| f.write("#{id}\n") }
+			todos.update( { :_id => BSON::ObjectId(id) },
+			{ 
+				:archived => "#{Time.new}" 
+			})
+		end
+		# "#{todos}"
 	end
 
 
@@ -82,6 +97,8 @@ class MyApp < Sinatra::Base
 		id = todos.insert( params )
 		"#{id}"
 	end
+
+
 
 
 

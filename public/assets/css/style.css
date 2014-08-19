@@ -1,4 +1,3 @@
-/*html,body { height: 100%; }*/
 body {
 	font-family: arial;
 	overflow-y:scroll;
@@ -33,7 +32,6 @@ body {
 	height: 250px;
 	overflow-y: scroll;
 	border: 1px solid #535353;
-	/*padding: 1em;*/
 	margin-bottom: 1em;
 	
 }
@@ -52,6 +50,12 @@ body {
 	font-size: 24px;
 	padding: 3px 15px;
 }
+.todo[done=true] input {
+	text-decoration: line-through;
+}
+.todo:hover {
+	background-color: #666;
+}
 .todo .todo-name {
 	display: inline-block;
 	width: 475px;
@@ -65,8 +69,6 @@ body {
 	cursor: pointer;
 	color: #fff;
 }
-
-
 .done {
 	position: absolute;
 	right: 5px;
@@ -80,15 +82,22 @@ body {
 .fr {
 	float: right;
 }
-
+input {
+	outline: 0;
+}
 input[type=submit],
 button {
-	background-color: rgb(255, 191, 55);
+	background-color: #444;
 	border: 0;
 	color: #fff;
 	padding: 5px 15px;
 }
+input[type=submit]:hover,
+button:hover {
+	background-color: #666;
+}
 input[type=text] {
 	color: #222;
-
+	padding: 5px;
+	border: 0;
 }

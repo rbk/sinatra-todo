@@ -23,6 +23,9 @@ $(function(){
 				if( $('.no-todos').length ){
 					$('.no-todos').remove();
 				}
+
+				update_todo_count('increase');
+
 			});
 		}
 	});
@@ -94,24 +97,28 @@ $(function(){
 	});
 	// update todo on click of checkbox
 	$('.todos').on('click', '.delete-todo', function(){
-		// var sure = confirm('Are you sure?');
-		// if( sure ){
+		var sure = confirm('Are you sure you want to delete this todo item?');
+		if( sure ){
 			var li = $(this).parents('li')
 			$.ajax({
 				url: '/todos/?id=' + li.attr('id'),
 				type: 'DELETE',
 				success: function(response) {
-					// alert(response)
+					console.log(response);
 					li.remove();
 				}
 			});
-		// }
+			update_todo_count('decrease')
+		}
+	});
+
+	$('.archive_todos').on('click',function(){
+		archive_completed_todos()
 	});
 
 
 	function update_todo(el){
 		var li = el.parents('li');
-
 		$.ajax({
 			url: '/todos',
 			type: 'POST',
@@ -129,6 +136,33 @@ $(function(){
 			}
 		});
 
+	}
+	function update_todo_count(plusMinus){;
+		var current_count = $('.todo-count').text();
+		current_count = parseInt( current_count );
+		if( plusMinus == 'increase' ){
+			current_count++;
+		} else {	
+			current_count--;
+		}
+		$('.todo-count').text(current_count)
+	}
+
+	function archive_completed_todos(){
+		var update_array = [];
+		$('.todos .todo').each(function(){
+			update_array.push( $(this).attr('id') );
+		});
+		$.ajax({
+			url: '/archive-todos',
+			type: 'POST',
+			data: { 
+				todos: update_array
+			},
+			success: function(response) {
+				console.log( response )
+			}
+		});
 	}
 
 
