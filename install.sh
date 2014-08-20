@@ -6,4 +6,5 @@ gem install mongo;
 echo 'Installing Sinatra! This may take forever!'
 gem install sinatra;
 gem install thin;
+gem install shotgun;
 echo 'Finished with no errors.'

@@ -18,6 +18,8 @@ gem install mongo
 
 gem install sinatra
 
+gem install shotgun
+
 <!-- gem install slim -->
 gem install thin
 

@@ -149,15 +149,11 @@ $(function(){
 	}
 
 	function archive_completed_todos(){
-		var update_array = [];
-		$('.todos .todo').each(function(){
-			update_array.push( $(this).attr('id') );
-		});
 		$.ajax({
 			url: '/archive-todos',
 			type: 'POST',
 			data: { 
-				todos: update_array
+				action: 'archive'
 			},
 			success: function(response) {
 				console.log( response )

@@ -2,6 +2,7 @@ require 'rubygems'
 require 'sinatra'
 require 'mongo'
 require 'json/ext' # required for .to_json
+require 'shotgun' # development server auto restarting
 
 # Don't need to set this as it is Sinatra's default asset directory.
 # set :public_folder, File.dirname(__FILE__) + '/assets'
@@ -80,16 +81,18 @@ class MyApp < Sinatra::Base
 	end
 
 	post '/archive-todos' do
-		todo_ids = params[:todos]
-		todo_ids.each do |id|
-			id = id.to_s
-			File.open("development.log", 'a') {|f| f.write("#{id}\n") }
-			todos.update( { :_id => BSON::ObjectId(id) },
-			{ 
-				:archived => "#{Time.new}" 
-			})
-		end
+		# todo_ids = params[:todos]
+		# todo_ids.each do |id|
+		# 	id = id.to_s
+		# 	File.open("development.log", 'a') {|f| f.write("#{id}\n") }
+		# 	todos.update( { :_id => BSON::ObjectId(id) },
+		# 	{ 
+		# 		:archived => "#{Time.new}" 
+		# 	})
+		# end
 		# "#{todos}"
+		todo_list = todos.find( {:done => true} )
+		"#{todo_list}".to_s
 	end
 
 
@@ -98,7 +101,10 @@ class MyApp < Sinatra::Base
 		"#{id}"
 	end
 
-
+	not_found do
+		status 418
+		erb :oops, :layout => :not_logged_in
+	end
 
 
 
