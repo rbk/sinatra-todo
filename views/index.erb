@@ -1,20 +1,8 @@
 
-<h1>Todos: <%= @todo_collection.count %></h1>
-<ul>
-	<li>First, find out why jquery is throughing error</li>
-	<li>Click to edit, onchange update</li>
-	<li>Click square to complete</li>
-	<li>Button to archive all completed todos</li>
-	<li>page list of completed todos</li>
-	<li>organize completed todos by date and time</li>
-</ul>
+<h1>Todos: <span class="todo-count"><%= @todo_collection.count %></span> </h1>
 
 <ul class="todos">
-	<li class="todo" id="{{id}}">
-		<span class="name">Finish this todo app</span>
-		<!-- <span id="edit-todo" class="fa fa-pencil-square-o"></span> -->
-		<span id="done-todo" class="fa fa-square-o"></span>
-	</li>
+
 </ul>
 
 <form action="/todos" method="post">
@@ -23,23 +11,28 @@
 </form>
 
 <br>
-<button class="remove_all_todos">Clear All Todos</button>
-<button>View Archive</button>
-
+<button class="archive_todos">Archive Completed Todos</button>
+<button class="view_archive">View Archive</button>
+<br>
+<br>
+<button style="background-color:red" class="remove_all_todos">Delete ALL </button>
 
 <script type="whatever">
 	@todo_collection: 
 	<div class="information">
 		<%= @todo_collection.inspect %>
 	</div>	
+	<span class="edit-todo fa fa-pencil-square-o"></span>
 </script>
 
 <script id="todo-template" type="text/template">
-
-	<li class="todo" id="{{id}}">
-		<span class="name">{{name}}</span>
-		<span id="edit-todo" class="fa fa-pencil-square-o"></span>
-		<span id="done-todo" class="fa fa-square-o"></span>
+	<li class="todo" id="{{id}}" done="{{done}}">
+		<div class="todo-name">
+			<input type="text" class="name" value="{{name}}">
+		</div>
+		<div class="todo-check">
+			<span class="done-todo fa {{done-class}}"></span>
+			<span class="delete-todo fa fa-times"></span>
+		</div>
 	</li>
-	
 </script>

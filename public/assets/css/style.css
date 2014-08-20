@@ -1,14 +1,14 @@
-/*html,body { height: 100%; }*/
 body {
-	font-family: consolas;
+	font-family: arial;
 	overflow-y:scroll;
+	background-color: #222;
 }
 #page {
-	/*height: 100%;*/
 	padding: 1em;
 	max-width: 600px;
 	margin: 0 auto;
-	box-shadow: 0px 0px 15px -6px #444;
+	background-color: 222;
+	color: #eee;
 }
 .information {
 	background-color: #eee;
@@ -17,28 +17,57 @@ body {
 	border: 1px solid #444;
 	padding: 1em;
 }
+.todos * {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
 .todos {
 	margin: 0;
 	padding: 0;
 	list-style: none;
-	height: 150px;
+	height: 250px;
 	overflow-y: scroll;
-	border: 1px solid #eee;
-	padding: 1em;
+	border: 1px solid #535353;
 	margin-bottom: 1em;
 	
 }
-.todo {
-	position: relative;
-	display:block;
-	margin-bottom:1px;
-	padding: 5px;
-	border: 1px solid #fff;
+.todos input[type=text] {
+	background-color: transparent;
+	outline:0;
+	border:0;
+	color: #eee;
+	width: 100%;
+	padding: 0;
 }
-.todo input {
-	width: 90%;
-	/*background-color: transparent;*/
-	/*border: 0;*/
+.todo {
+	background-color: #524F4F;
+	margin-bottom: 1px;
+	position: relative;
+	font-size: 24px;
+	padding: 3px 15px;
+}
+.todo[done=true] input {
+	text-decoration: line-through;
+}
+.todo:hover {
+	background-color: #666;
+}
+.todo .todo-name {
+	display: inline-block;
+	width: 475px;
+}
+.todo .todo-check {
+	display: inline-block;
+	width: 50px;
+	float: right;
+}
+.todo span:hover {
+	cursor: pointer;
+	color: #fff;
 }
 .done {
 	position: absolute;
@@ -50,18 +79,25 @@ body {
 .fa-square-o {
 	right: 7px;
 }
-.todo:hover {
-	cursor: pointer;
-	border: 1px solid #eee;
-}
 .fr {
 	float: right;
 }
-
+input {
+	outline: 0;
+}
 input[type=submit],
 button {
-	background-color: rgb(255, 191, 55);
+	background-color: #444;
 	border: 0;
 	color: #fff;
 	padding: 5px 15px;
+}
+input[type=submit]:hover,
+button:hover {
+	background-color: #666;
+}
+input[type=text] {
+	color: #222;
+	padding: 5px;
+	border: 0;
 }

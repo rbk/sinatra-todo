@@ -6,8 +6,6 @@ require 'json/ext' # required for .to_json
 # Don't need to set this as it is Sinatra's default asset directory.
 # set :public_folder, File.dirname(__FILE__) + '/assets'
 
-
-
 class MyApp < Sinatra::Base
 	
 	##
@@ -28,25 +26,26 @@ class MyApp < Sinatra::Base
 		erb :index
 	end
 
-	get '/backbone' do
-		@todo_collection = todos
-		erb :backbone
+	delete '/api/todos/' do
+		todos.remove()
+		"You deleted everything in the todo collection!"			
 	end
 
-	# todo index
-	get '/todos' do
-		@todo_collection = todos
-		erb :index
+	delete '/todos/:id?' do
+		if params[:id]
+			id = BSON::ObjectId(params[:id])
+			todo = todos.remove( {:_id => id } ).to_a
+			"Todo removed with id #{id}"
+		end
 	end
 
-	# Create
-	post '/todos' do
-		# content_type :json
-		@json = JSON.parse(request.body.read)
-		id = todos.insert( @json )
-		File.open("development.log", 'a') {|f| f.write("ID: #{id.to_s} - #{@json}\n") }
-		"#{@json}".to_json # Backbone expects a json object to be returned in order to fire the success callback
+	post '/todo/new' do
+		params[:date_created] = "#{Time.new}"
+		File.open("development.log", 'a') {|f| f.write("#{params}\n") }
+		id = todos.insert( params )
+		params.to_json
 	end
+
 
 	# read as json
 	get '/api/todos' do
@@ -69,24 +68,53 @@ class MyApp < Sinatra::Base
 	end
 
 	# update
-	put '/todos' do
+	post '/todos' do
+		todo = todos.update( { :_id => BSON::ObjectId(params[:id]) },
+		{ 
+			:name => params[:name], 
+			:done => params[:done]
+		})
+		params.to_json
+		# { "_id" : ObjectId("53f167c1ae35d73e10000001"), "name" : "s" }
 
 	end
 
-
-
-	delete '/todos/?:id?' do
-		if !params[:id].empty?
-			todos.remove()
-			"You deleted everything in the todo collection!"			
-		else
-			"NO ID"
+	post '/archive-todos' do
+		todo_ids = params[:todos]
+		todo_ids.each do |id|
+			id = id.to_s
+			File.open("development.log", 'a') {|f| f.write("#{id}\n") }
+			todos.update( { :_id => BSON::ObjectId(id) },
+			{ 
+				:archived => "#{Time.new}" 
+			})
 		end
+		# "#{todos}"
 	end
+
 
 	post '/whatever' do
 		id = todos.insert( params )
 		"#{id}"
+	end
+
+
+
+
+
+
+
+
+
+
+##################Backbone only###########################
+	# Create
+	post '/backbone/todos' do
+		content_type :json
+		@json = JSON.parse(request.body.read)
+		id = todos.insert( @json )
+		File.open("development.log", 'a') {|f| f.write("ID: #{id.to_s} - #{@json}\n") }
+		"#{@json}".to_json # Backbone expects a json object to be returned in order to fire the success callback
 	end
 
 
