@@ -97,8 +97,8 @@ $(function(){
 	});
 	// update todo on click of checkbox
 	$('.todos').on('click', '.delete-todo', function(){
-		var sure = confirm('Are you sure you want to delete this todo item?');
-		if( sure ){
+		// var sure = confirm('Are you sure you want to delete this todo item?');
+		// if( sure ){
 			var li = $(this).parents('li')
 			$.ajax({
 				url: '/todos/?id=' + li.attr('id'),
@@ -109,7 +109,7 @@ $(function(){
 				}
 			});
 			update_todo_count('decrease')
-		}
+		// }
 	});
 
 	$('.archive_todos').on('click',function(){
