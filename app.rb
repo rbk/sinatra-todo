@@ -91,15 +91,19 @@ class MyApp < Sinatra::Base
 		# 	})
 		# end
 		# "#{todos}"
-		todo_list = todos.find( {:done => true} )
-		"#{todo_list}".to_s
+		# todo_list.each do | todo |
+		# 	todo = todo.to_h
+		# 	File.open("development.log", 'a') {|f| f.write("#{todo[:_id]}\n") }
+		# # todos.update( { :done => 'true' }, todo[:archived] = "#{Time.new}" )
+		# 	# todo[:archived] = "#{Time.new}"
+
+		# 	# todos.update({ :_id => todo._id }, {"$set" => {:archived => "#{Time.new}"}})
+		# 	# File.open("development.log", 'a') {|f| f.write("#{todo}\n") }
+		# end 
+		"#{todo_list.count}"
 	end
 
 
-	post '/whatever' do
-		id = todos.insert( params )
-		"#{id}"
-	end
 
 	not_found do
 		status 418
