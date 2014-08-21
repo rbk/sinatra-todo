@@ -51,7 +51,7 @@ class MyApp < Sinatra::Base
 	# read as json
 	get '/api/todos' do
 		content_type :json
-		todos.find.to_a.to_json
+		todos.find({:done=>"false"}).to_a.to_json
   		# {"_id":{"$oid": "53d9bb1fae35d721b9000001"} - Note get rid of this format somehow
 	end
 	
@@ -81,28 +81,28 @@ class MyApp < Sinatra::Base
 	end
 
 	post '/archive-todos' do
-		# todo_ids = params[:todos]
-		# todo_ids.each do |id|
-		# 	id = id.to_s
-		# 	File.open("development.log", 'a') {|f| f.write("#{id}\n") }
-		# 	todos.update( { :_id => BSON::ObjectId(id) },
-		# 	{ 
-		# 		:archived => "#{Time.new}" 
-		# 	})
-		# end
-		# "#{todos}"
-		# todo_list.each do | todo |
-		# 	todo = todo.to_h
-		# 	File.open("development.log", 'a') {|f| f.write("#{todo[:_id]}\n") }
-		# # todos.update( { :done => 'true' }, todo[:archived] = "#{Time.new}" )
-		# 	# todo[:archived] = "#{Time.new}"
+		# this awesome line changes a field for all mongo documents that match with the :MULTI hash being true
+		# todos.update( { :done => 'true' }, {'$set' => { :archived => "#{Time.new}" } },{:multi => true } )
 
-		# 	# todos.update({ :_id => todo._id }, {"$set" => {:archived => "#{Time.new}"}})
-		# 	# File.open("development.log", 'a') {|f| f.write("#{todo}\n") }
-		# end 
-		"#{todo_list.count}"
+		params[:todos].to_a.each do | this |
+			File.open("development.log", 'a') {|f| f.write("#{this}\n") }
+
+			todos.update( { :_id => BSON::ObjectId(this), :done => 'true' }, {'$set' => { :archived => "true" } } )
+
+
+		end
+
+
+		"#{params[:todos].to_a}"
 	end
 
+
+	get '/api/archived-todos' do
+		content_type :json
+		todos.find({:archived=>"true"}).to_a.to_json
+		# /api/archived-todos
+
+	end
 
 
 	not_found do

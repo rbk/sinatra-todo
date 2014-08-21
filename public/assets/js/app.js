@@ -108,7 +108,7 @@ $(function(){
 					li.remove();
 				}
 			});
-			update_todo_count('decrease')
+			update_todo_count('decrease');
 		// }
 	});
 
@@ -151,7 +151,9 @@ $(function(){
 	function archive_completed_todos(){
 		var update_array = [];
 		$('.todos .todo').each(function(){
-			update_array.push( $(this).attr('id') );
+			if( $(this).attr('done') == 'true' ){
+				update_array.push( $(this).attr('id') );
+			}
 		});
 		$.ajax({
 			url: '/archive-todos',
@@ -160,10 +162,31 @@ $(function(){
 				todos: update_array
 			},
 			success: function(response) {
-				console.log( response )
+				console.log( response );
+				$('.todos .todo[done="true"]').remove();
+				// alert('whoop')
 			}
 		});
 	}
+
+	$('.view-archived-todos').click(function(e){
+		e.preventDefault();
+
+		$('.archive-container').html('');
+		$('.archive-container').append('<h2>Archive</h2>');
+		$('.archive-container').append('<div class="todo-archive-list">')
+
+
+		$.get('/api/archived-todos',function(data){
+			console.log( data )
+			$.each( data, function(index,value) {
+
+				$('.todo-archive-list').append('<li>'+ value['name'] +'</li>')
+
+			});
+
+		});
+	});
 
 
 
