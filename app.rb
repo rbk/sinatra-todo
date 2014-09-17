@@ -78,7 +78,5 @@ class MyApp < Sinatra::Base
 		status 418
 		erb :oops, :layout => :not_logged_in
 	end
-
-
 	
 end

@@ -32,6 +32,10 @@ $(function(){
 		li.find('span').text('');
 		$(this).removeClass('edit').addClass('update').text('Update');
 	});
+	/*
+	*
+	*
+	*/
 	$(document).on('click', '.update', function(){
 		var li = $(this).parent();
 		var id = li.attr('id');
