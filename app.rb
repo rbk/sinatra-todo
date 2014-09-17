@@ -62,6 +62,17 @@ class MyApp < Sinatra::Base
 		erb :system
 
 	end
+	# very easy search function
+	get '/users/:s' do
+		content_type :json
+		s = params[:s]
+		users = User.where( {:name =>  Regexp.new(s,Regexp::IGNORECASE) } )
+		users.to_json
+	end
+	get '/users' do
+		content_type :json
+		users = User.all.to_json
+	end
 
 	not_found do
 		status 418
