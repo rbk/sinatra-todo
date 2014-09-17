@@ -8,9 +8,9 @@
 <ol id="list-of-things">
 	<% @users.each do | user | %>
 		<li id="<%= user.id %>">
-			<span class="name"><%= user.name %></span>
-			<button id="<%= user.id %>" class="delete">Destroy</button>
-			<button class="edit">Edit</button>
+			<input type="text" value="<%= user.name %>" />
+			<!-- <button id="<%= user.id %>" class="delete">Destroy</button> -->
+			<button class="update">Update</button>
 		</li>
 	<% end %>
 </ol>

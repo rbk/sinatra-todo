@@ -24,14 +24,7 @@ $(function(){
 			}
 		});
 	});
-	$(document).on( 'click', '.edit', function(){
-		var li = $(this).parent();
-		var id = li.attr('id');
-		var text = li.find('span').text();
-		li.prepend( $('<input>', {value: text, id: id}) );
-		li.find('span').text('');
-		$(this).removeClass('edit').addClass('update').text('Update');
-	});
+
 	/*
 	*
 	*
@@ -50,9 +43,6 @@ $(function(){
 			}
 		}).done(function(res){
 			console.log('updated');
-			li.find('span').text(li.find('input').val());
-			li.find('input').remove();
-			button.removeClass('update').addClass('edit').text('Edit');
 		});
 	});
 
