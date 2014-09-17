@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta charset="utf-8">
-<title>Backbone todo app</title>
+<title>Layout file</title>
 <meta name="description" content="">
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,16 +15,21 @@
 <script src="//cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
-<link rel="shortcut icon" href="">
+<link rel="shortcut icon" href="assets/images/favicon.ico">
 </head>
 <body>
 	<div id="page">
-		<%= yield %>
+		<nav id="main-navigation">
+			<a href="/">List</a>
+			<a href="/system">System</a>
+		</nav>
+		<div id="inner">
+			<%= yield %>
+		</div>
 	</div>
 <script type="text/javascript" src="assets/js/jquery.js"></script>
 <script type="text/javascript" src="assets/js/underscore.js"></script>
 <script type="text/javascript" src="assets/js/backbone.js"></script>
-<!-- <script type="text/javascript" src="assets/js/backbone.localstorage.js"></script> -->
 <script type="text/javascript" src="assets/js/app.js"></script>
 </body>
 </html>

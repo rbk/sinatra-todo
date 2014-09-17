@@ -2,7 +2,7 @@
 echo "Installing dependencies";
 gem install bson;
 gem install bson_ext;
-gem install mongo;
+gem install mongo_mapper;
 echo 'Installing Sinatra! This may take forever!'
 gem install sinatra;
 gem install thin;

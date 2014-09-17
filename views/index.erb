@@ -1,43 +1,19 @@
+<h1>Dashboard - <small><%= Time.now %></small></h1>
 
-<h1>Todos: <span class="todo-count"><%= @todo_collection.count %></span> </h1>
-
-<ul class="todos">
-
-</ul>
-
-<form action="/todos" method="post">
-	<input type="text" id="todo" name="todo">
-	<input type="submit" id="addTodo" value="Add Todo">
+<form id="list" action="/user" method="POST">
+	<input type="text" name="item" id="item" autofocus>
+	<input type="submit">
 </form>
 
-<br>
-<button class="archive_todos">Archive Completed Todos</button>
-<button class="view-archived-todos">View Archive</button>
-<br>
-<br>
-<button style="background-color:red" class="remove_all_todos">Delete ALL </button>
+<ol id="list-of-things">
+	<% @users.each do | user | %>
+		<li id="<%= user.id %>">
+			<span class="name"><%= user.name %></span>
+			<button id="<%= user.id %>" class="delete">Destroy</button>
+			<button class="edit">Edit</button>
+		</li>
+	<% end %>
+</ol>
 
-<div class="archive-container">
-	
-<ul class="todo-archive-list"></ul>
-</div>
 
-<script type="whatever">
-	@todo_collection: 
-	<div class="information">
-		<%= @todo_collection.inspect %>
-	</div>	
-	<span class="edit-todo fa fa-pencil-square-o"></span>
-</script>
 
-<script id="todo-template" type="text/template">
-	<li class="todo" id="{{id}}" done="{{done}}">
-		<div class="todo-name">
-			<input type="text" class="name" value="{{name}}">
-		</div>
-		<div class="todo-check">
-			<span class="done-todo fa {{done-class}}"></span>
-			<span class="delete-todo fa fa-times"></span>
-		</div>
-	</li>
-</script>
