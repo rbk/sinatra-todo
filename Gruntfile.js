@@ -5,7 +5,7 @@ module.exports = function(grunt) {
         sass: {
             dist: {
                 files: {
-                    'public/assets/css/app.css' : 'public/assests/sass/app.scss'
+                    'public/assets/css/app.css' : 'public/assets/sass/app.scss'
                 }
             }
         },
@@ -21,17 +21,22 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-sinatra');
     // grunt.registerTask('default', [ 'watch' ]);
     grunt.registerTask('default', [
-        'concat',
-        'uglify',
-        'sass',
-        'autoprefixer',
-        'cssmin',
-        'assemble',
-        'imagemin',
-        'copy',
         'sinatra:serve',
-        'open:chromium',
         'watch'
     ]);
+    // Sample
+    // grunt.registerTask('default', [
+    //     'concat',
+    //     'uglify',
+    //     'sass',
+    //     'autoprefixer',
+    //     'cssmin',
+    //     'assemble',
+    //     'imagemin',
+    //     'copy',
+    //     'sinatra:serve',
+    //     'open:chromium',
+    //     'watch'
+    // ]);
 
 };

@@ -21,17 +21,18 @@ input,
 button {
 	color: #222;
 }
+
 input[type=submit],
 button {
 	background: none;
 	border: 3px solid #eee;
 	color: #eee;
+	&:hover {
+		background-color: #eee;
+		color: #222;		
+	}
 }
-input[type=submit]:hover,
-button:hover {
-	background-color: #eee;
-	color: #222;
-}
+
 #main-navigation {
 	width: 100%;
 	background-color: #333;
