@@ -2531,7 +2531,6 @@ textarea {
   border: 0;
   padding: 3px;
   display: inline-block;
-  border: 3px solid #eee;
   width: 100%;
   line-height: 1;
   font-size: 100%; }
@@ -2539,8 +2538,7 @@ textarea {
 input[type=submit],
 button {
   background: none;
-  color: #eee;
-  border: 4px solid #eee; }
+  color: #eee; }
   input[type=submit]:hover,
   button:hover {
     background-color: #eee;
@@ -2570,6 +2568,9 @@ button {
   #page #inner {
     padding: 2em; }
 
+#list input {
+  max-width: 300px; }
+
 #list-of-things {
   margin: 1em auto;
   padding: 0;
@@ -2579,13 +2580,15 @@ button {
     display: block;
     margin-bottom: 1px;
     padding: 1em;
-    background-color: #111; }
+    background-color: #111;
+    background-color: #635823; }
     #list-of-things li button {
       margin-right: 1px;
       max-width: 10%; }
     #list-of-things li input {
       max-width: 78%;
-      background-color: #222;
+      background-color: #111;
+      background-color: #635823;
       color: #eee; }
 
 /*# sourceMappingURL=app.css.map */

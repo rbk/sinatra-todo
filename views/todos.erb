@@ -1,0 +1,21 @@
+
+<form id="list" action="/todo" method="POST">
+	<input type="text" name="item" id="item" autofocus>
+	<input type="submit" value="Add Todo">
+</form>
+
+<p>Entries will update as you type.</p>
+<div id="output">
+<ol id="list-of-things">
+	<% @todos.each do | todo | %>
+		<li id="<%= todo.id %>">
+			<input type="text" value="<%= todo.name %>" />
+			<button id="<%= todo.id %>" class="delete">Destroy</button>
+			<!-- <button class="update">Update</button> -->
+		</li>
+	<% end %>
+</ol>
+</div>
+
+
+

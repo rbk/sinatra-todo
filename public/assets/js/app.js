@@ -3,8 +3,8 @@ $(function(){
 	$('#list').submit(function(e){
 		e.preventDefault();
 		var item = $('#item').val();
-		$.post('/user', { name: item }, function(res){
-			$('#list-of-things').load('/ #list-of-things');
+		$.post('/todo', { name: item }, function(res){
+			$('#output').load('/todos #list-of-things');
 			$('#item').val('');
 		});
 		return false;
@@ -13,7 +13,7 @@ $(function(){
 	$(document).on('click', '.delete', function(){
 		var id = $(this).attr('id');
 		$.ajax({
-			url: '/user',
+			url: '/todo',
 			type: 'delete',
 			data: {
 				id: id
@@ -24,27 +24,31 @@ $(function(){
 			}
 		});
 	});
-
-	/*
-	*
-	*
-	*/
-	$(document).on('click', '.update', function(){
+	// alternative is to have a timeout that gets reset
+	// instead of a post request on keyup, save after three seconds of typing
+	// with will be much better for the server and in turn the user
+	var t;
+	$(document).on('keyup', '#list-of-things input[type=text]', function(){
+		window.clearTimeout(t);
 		var li = $(this).parent();
 		var id = li.attr('id');
 		var new_value = li.find('input').val();
 		var button = $(this);
-		$.ajax({
-			url: 'user',
-			type: 'put',
-			data: {
-				id: id,
-				name: new_value
-			}
-		}).done(function(res){
-			console.log('updated');
-		});
+
+		t = setTimeout(function(){
+			$.ajax({
+				url: '/todo',
+				type: 'put',
+				data: {
+					id: id,
+					name: new_value
+				}
+				}).done(function(){
+					console.log( Math.random() )
+				});
+		}, 2000);
 	});
+
 
 //////////////////////Backbone only //////////////////////////////
 

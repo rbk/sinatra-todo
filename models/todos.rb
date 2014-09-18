@@ -1,4 +1,4 @@
-class User
+class Todo
   include MongoMapper::Document
 
   key :name, String
